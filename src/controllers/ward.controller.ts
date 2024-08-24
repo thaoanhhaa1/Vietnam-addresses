@@ -7,7 +7,13 @@ export const getAllWard = async (req: Request, res: Response) => {
             ? { parent_id: req.query.districtId }
             : {};
 
-        const districts = await Ward.find(filter);
+        const districts = await Ward.find(
+            filter,
+            {},
+            {
+                sort: { name: 1 },
+            },
+        );
 
         res.json(districts);
     } catch (error) {

@@ -5,7 +5,13 @@ export const getAllDistrict = async (req: Request, res: Response) => {
     try {
         const filter = req.query.cityId ? { parent_id: req.query.cityId } : {};
 
-        const districts = await District.find(filter);
+        const districts = await District.find(
+            filter,
+            {},
+            {
+                sort: { name: 1 },
+            },
+        );
 
         res.json(districts);
     } catch (error) {

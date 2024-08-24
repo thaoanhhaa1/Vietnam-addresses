@@ -17,7 +17,9 @@ const district_1 = __importDefault(require("../models/district"));
 const getAllDistrict = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const filter = req.query.cityId ? { parent_id: req.query.cityId } : {};
-        const districts = yield district_1.default.find(filter);
+        const districts = yield district_1.default.find(filter, {}, {
+            sort: { name: 1 },
+        });
         res.json(districts);
     }
     catch (error) {

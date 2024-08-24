@@ -19,7 +19,9 @@ const getAllWard = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const filter = req.query.districtId
             ? { parent_id: req.query.districtId }
             : {};
-        const districts = yield ward_1.default.find(filter);
+        const districts = yield ward_1.default.find(filter, {}, {
+            sort: { name: 1 },
+        });
         res.json(districts);
     }
     catch (error) {

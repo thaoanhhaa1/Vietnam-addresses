@@ -16,7 +16,9 @@ exports.getAllCity = void 0;
 const city_1 = __importDefault(require("../models/city"));
 const getAllCity = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const cities = yield city_1.default.find();
+        const cities = yield city_1.default.find({}, {}, {
+            sort: { name: 1 },
+        });
         res.json(cities);
     }
     catch (error) {
