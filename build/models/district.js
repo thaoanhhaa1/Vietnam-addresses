@@ -29,6 +29,10 @@ const DistrictSchema = new mongoose_1.Schema({
     _id: { type: String, required: true },
     name: { type: String, required: true },
     parentId: { type: String, required: true },
+}, {
+    collation: {
+        locale: 'en',
+    },
 });
 // Create a model from the schema
 const District = mongoose_1.default.model('District', DistrictSchema);

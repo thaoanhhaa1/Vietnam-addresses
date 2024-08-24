@@ -8,11 +8,18 @@ interface IWard extends Document {
 }
 
 // Create a schema for the user
-const WardSchema: Schema<IWard> = new Schema({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-    parentId: { type: String, required: true },
-});
+const WardSchema: Schema<IWard> = new Schema(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+        parentId: { type: String, required: true },
+    },
+    {
+        collation: {
+            locale: 'en',
+        },
+    },
+);
 
 // Create a model from the schema
 const Ward = mongoose.model<IWard>('Ward', WardSchema);

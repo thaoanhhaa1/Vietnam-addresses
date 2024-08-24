@@ -7,10 +7,17 @@ interface ICity extends Document {
 }
 
 // Create a schema for the user
-const CitySchema: Schema<ICity> = new Schema({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-});
+const CitySchema: Schema<ICity> = new Schema(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+    },
+    {
+        collation: {
+            locale: 'en',
+        },
+    },
+);
 
 // Create a model from the schema
 const City = mongoose.model<ICity>('City', CitySchema);

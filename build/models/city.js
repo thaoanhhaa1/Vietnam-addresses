@@ -28,6 +28,10 @@ const mongoose_1 = __importStar(require("mongoose"));
 const CitySchema = new mongoose_1.Schema({
     _id: { type: String, required: true },
     name: { type: String, required: true },
+}, {
+    collation: {
+        locale: 'en',
+    },
 });
 // Create a model from the schema
 const City = mongoose_1.default.model('City', CitySchema);
