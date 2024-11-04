@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
+import Redis from '../configs/redis.config';
 import City from '../models/city';
 
 export const getAllCity = async (_req: Request, res: Response) => {
     try {
+        const citiesRedis = await Redis.getInstance().getClient().get('cities');
+
+        if (citiesRedis) return res.json(JSON.parse(citiesRedis));
+
         const cities = await City.find(
             {},
             {},
@@ -10,6 +15,8 @@ export const getAllCity = async (_req: Request, res: Response) => {
                 sort: { name: 1 },
             },
         );
+
+        Redis.getInstance().getClient().set('cities', JSON.stringify(cities));
 
         res.json(cities);
     } catch (error) {

@@ -13,12 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCity = void 0;
+const redis_config_1 = __importDefault(require("../configs/redis.config"));
 const city_1 = __importDefault(require("../models/city"));
 const getAllCity = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const citiesRedis = yield redis_config_1.default.getInstance().getClient().get('cities');
+        if (citiesRedis)
+            return res.json(JSON.parse(citiesRedis));
         const cities = yield city_1.default.find({}, {}, {
             sort: { name: 1 },
         });
+        redis_config_1.default.getInstance().getClient().set('cities', JSON.stringify(cities));
         res.json(cities);
     }
     catch (error) {

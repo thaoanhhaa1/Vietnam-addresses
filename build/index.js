@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
+const redis_config_1 = __importDefault(require("./configs/redis.config"));
 const db_1 = __importDefault(require("./db"));
 const routes_1 = __importDefault(require("./routes"));
 dotenv_1.default.config();
@@ -18,6 +19,11 @@ app.use('/api/v1', routes_1.default);
 app.use((_err, _req, res, _next) => {
     res.status(404).json({ message: 'Resource not found' });
 });
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+redis_config_1.default.getInstance()
+    .connect()
+    .then(() => {
+    app.listen(port, () => {
+        console.log(`Server is running at http://localhost:${port}`);
+    });
+})
+    .catch(console.log);

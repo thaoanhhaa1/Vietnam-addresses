@@ -6,6 +6,7 @@ import express, {
     Request,
     Response,
 } from 'express';
+import Redis from './configs/redis.config';
 import connectDB from './db';
 import router from './routes';
 
@@ -32,6 +33,11 @@ app.use(
     },
 );
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+Redis.getInstance()
+    .connect()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running at http://localhost:${port}`);
+        });
+    })
+    .catch(console.log);

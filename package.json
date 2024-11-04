@@ -19,7 +19,8 @@
         "elasticsearch-learn": "file:",
         "express": "^4.19.2",
         "mongoose": "^8.5.1",
-        "nodemon": "^3.1.4"
+        "nodemon": "^3.1.4",
+        "redis": "^4.7.0"
     },
     "devDependencies": {
         "@types/express": "^4.17.21",

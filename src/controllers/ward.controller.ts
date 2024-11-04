@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import Redis from '../configs/redis.config';
 import Ward from '../models/ward';
 
 export const getAllWard = async (req: Request, res: Response) => {
@@ -7,6 +8,12 @@ export const getAllWard = async (req: Request, res: Response) => {
             ? { parent_id: req.query.districtId }
             : {};
 
+        const wardsRedis = await Redis.getInstance()
+            .getClient()
+            .get(`wards::${JSON.stringify(filter)}`);
+
+        if (wardsRedis) return res.json(JSON.parse(wardsRedis));
+
         const districts = await Ward.find(
             filter,
             {},
@@ -14,6 +21,10 @@ export const getAllWard = async (req: Request, res: Response) => {
                 sort: { name: 1 },
             },
         );
+
+        Redis.getInstance()
+            .getClient()
+            .set(`wards::${JSON.stringify(filter)}`, JSON.stringify(districts));
 
         res.json(districts);
     } catch (error) {

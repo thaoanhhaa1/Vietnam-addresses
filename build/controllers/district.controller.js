@@ -13,13 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllDistrict = void 0;
+const redis_config_1 = __importDefault(require("../configs/redis.config"));
 const district_1 = __importDefault(require("../models/district"));
 const getAllDistrict = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const filter = req.query.cityId ? { parent_id: req.query.cityId } : {};
+        const districtsRedis = yield redis_config_1.default.getInstance()
+            .getClient()
+            .get(`districts::${JSON.stringify(filter)}`);
+        if (districtsRedis)
+            return res.json(JSON.parse(districtsRedis));
         const districts = yield district_1.default.find(filter, {}, {
             sort: { name: 1 },
         });
+        redis_config_1.default.getInstance()
+            .getClient()
+            .set(`districts::${JSON.stringify(filter)}`, JSON.stringify(districts));
         res.json(districts);
     }
     catch (error) {
