@@ -5,6 +5,7 @@ import City from '../models/city';
 export const getAllCity = async (_req: Request, res: Response) => {
     try {
         const citiesRedis = await Redis.getInstance().getClient().get('cities');
+        console.log('🚀 ~ getAllCity ~ citiesRedis:', citiesRedis);
 
         if (citiesRedis) return res.json(JSON.parse(citiesRedis));
 
