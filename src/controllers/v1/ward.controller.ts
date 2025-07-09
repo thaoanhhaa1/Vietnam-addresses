@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Redis from '../configs/redis.config';
-import Ward from '../models/ward';
+import Redis from '../../configs/redis.config';
+import Ward from '../../models/v1/ward';
 
 export const getAllWard = async (req: Request, res: Response) => {
     try {

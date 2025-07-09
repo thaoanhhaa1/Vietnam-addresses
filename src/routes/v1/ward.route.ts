@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllWard } from '../controllers/ward.controller';
+import { getAllWard } from '../../controllers/v1/ward.controller';
 
 const router = express.Router();
 

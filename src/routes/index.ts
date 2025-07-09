@@ -1,12 +1,8 @@
 import express from 'express';
-import city from './city.route';
-import district from './district.route';
-import ward from './ward.route';
+import v1 from './v1';
 
 const router = express.Router();
 
-router.use('/cities', city);
-router.use('/districts', district);
-router.use('/wards', ward);
+router.use('/v1', v1);
 
 export default router;

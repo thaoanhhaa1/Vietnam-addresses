@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Redis from '../configs/redis.config';
-import District from '../models/district';
+import Redis from '../../configs/redis.config';
+import District from '../../models/v1/district';
 
 export const getAllDistrict = async (req: Request, res: Response) => {
     try {
