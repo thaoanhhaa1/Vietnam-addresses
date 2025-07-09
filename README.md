@@ -12,7 +12,7 @@ This is a Node.js RESTful API that provides endpoints to retrieve information ab
 -   Get a list of all wards in Vietnam.
 -   Get a list of wards within a specific district.
 
-### Endpoints
+### API Version 1 (v1) Endpoints
 
 #### 1. Get Cities
 
@@ -131,6 +131,81 @@ This is a Node.js RESTful API that provides endpoints to retrieve information ab
             "_id": "106693533801859",
             "name": "Xã Gia Mô",
             "parent_id": "106731744533848"
+        }
+    ]
+    ```
+
+### API Version 2 (v2) Endpoints
+
+**Note**: API v2 provides a simplified administrative structure with only cities and wards. Districts are not included in this version, and wards are directly associated with cities.
+
+#### 1. Get Cities (v2)
+
+-   **URL**: `/api/v2/cities`
+-   **Method**: `GET`
+-   **Description**: Retrieves a list of all cities in Vietnam.
+
+    **Response Example**:
+
+    ```json
+    [
+        {
+            "_id": "106169285912657",
+            "name": "An Giang"
+        },
+        {
+            "_id": "106729332900600",
+            "name": "Bà Rịa - Vũng Tàu"
+        }
+    ]
+    ```
+
+#### 2. Get Wards (v2)
+
+-   **URL**: `/api/v2/wards`
+-   **Method**: `GET`
+-   **Description**: Retrieves a list of all wards in Vietnam.
+
+    **Response Example**:
+
+    ```json
+    [
+        {
+            "_id": "106415048701764",
+            "name": "Thị Trấn Mãn Đức",
+            "parent_id": "106169285912657"
+        },
+        {
+            "_id": "106693533801859",
+            "name": "Xã Gia Mô",
+            "parent_id": "106169285912657"
+        }
+    ]
+    ```
+
+#### 3. Get Wards by City (v2)
+
+-   **URL**: `/api/v2/wards?cityId={cityId}`
+-   **Method**: `GET`
+-   **Description**: Retrieves a list of wards within a specified city.
+
+    **Parameters**:
+
+    -   `cityId`: ID of the city.
+
+    **Response Example**:
+
+    ```json
+    [
+        {
+            "_id": "106415048701764",
+            "name": "Thị Trấn Mãn Đức",
+            "parent_id": "106169285912657"
+        },
+        {
+            "_id": "106693533801859",
+            "name": "Xã Gia Mô",
+            "parent_id": "106169285912657"
         }
     ]
     ```
