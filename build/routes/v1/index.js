@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const v1_1 = __importDefault(require("./v1"));
-const v2_1 = __importDefault(require("./v2"));
+const city_route_1 = __importDefault(require("./city.route"));
+const district_route_1 = __importDefault(require("./district.route"));
+const ward_route_1 = __importDefault(require("./ward.route"));
 const router = express_1.default.Router();
-router.use('/v1', v1_1.default);
-router.use('/v2', v2_1.default);
+router.use('/cities', city_route_1.default);
+router.use('/districts', district_route_1.default);
+router.use('/wards', ward_route_1.default);
 exports.default = router;

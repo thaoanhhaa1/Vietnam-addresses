@@ -4,9 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const v1_1 = __importDefault(require("./v1"));
-const v2_1 = __importDefault(require("./v2"));
+const ward_controller_1 = require("../../controllers/v1/ward.controller");
 const router = express_1.default.Router();
-router.use('/v1', v1_1.default);
-router.use('/v2', v2_1.default);
+router.get('/', ward_controller_1.getAllWard);
 exports.default = router;
